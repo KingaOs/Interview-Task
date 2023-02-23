@@ -16,8 +16,8 @@ public class UIManager : MonoBehaviour
     {
         _nameText.gameObject.SetActive(true);
         _healthText.gameObject.SetActive(true);
-        _nameText.text ="Name " + agent.Name;
-        _healthText.text = "Health " + agent.Health;
+        _nameText.text ="Name: " + agent.Name;
+        _healthText.text = "Health: " + agent.Health;
     }
 
     public void HideAgentInfo()
