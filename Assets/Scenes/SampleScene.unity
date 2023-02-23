@@ -163,7 +163,7 @@ MonoBehaviour:
   - {fileID: 472107262}
   - {fileID: 631203256}
   - {fileID: 1064337031}
-  _spawnArea: {fileID: 0}
+  _spawnArea: {fileID: 1000045206}
 --- !u!4 &162140374
 Transform:
   m_ObjectHideFlags: 0
@@ -615,8 +615,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnArea: {fileID: 1000045202}
-  _spawnAreaLength: 100
-  _spawnAreaWidth: 100
+  _spawnAreaLength: 10
+  _spawnAreaWidth: 10
 --- !u!1 &1064337031
 GameObject:
   m_ObjectHideFlags: 0
