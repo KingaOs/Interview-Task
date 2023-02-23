@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     private Camera _camera;
     private Agent _agent;
     private UIManager _uiManager;
+    private GameObject _previousAgent;
     void Start()
     {
         _camera = GetComponent<Camera>();
@@ -26,9 +27,21 @@ public class Player : MonoBehaviour
                 if (_agent != null)
                 {
                     _uiManager.ShowAgentInfo(_agent);
+
+                    if (_previousAgent != null)
+                    {
+                        _previousAgent.GetComponent<Outline>().enabled = false;
+                    }
+
+                    _agent.gameObject.GetComponent<Outline>().enabled = true;
+
+                    _previousAgent = _agent.gameObject;
                 }
                 else
                 {
+                    if (_previousAgent != null)
+                        _previousAgent.GetComponent<Outline>().enabled = false;
+
                     _uiManager.HideAgentInfo();
                 }
             }

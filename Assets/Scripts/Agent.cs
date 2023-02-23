@@ -44,7 +44,7 @@ public class Agent : MonoBehaviour
 
     void Start()
     {
-        
+
         _objectPooling = GameObject.Find("SpawnManager").GetComponent<ObjectPooling>();
         _collider = GetComponent<Collider>();
         _animator = GetComponent<Animator>();
@@ -61,7 +61,8 @@ public class Agent : MonoBehaviour
         if (!_isDead)
         {
             transform.position = Vector3.MoveTowards(transform.position, _targetPosition, step);
-            transform.forward = _targetPosition - transform.position;
+
+            transform.LookAt(_targetPosition);
         }
 
         if (Vector3.Distance(transform.position, _targetPosition) < 0.001f)
@@ -94,7 +95,7 @@ public class Agent : MonoBehaviour
         _isDead = true;
         _animator.SetTrigger("Death");
         _spawnManager.NumberOfAgent--;
-        
+
     }
 
     public void DeactiveAgentAfterAnim()

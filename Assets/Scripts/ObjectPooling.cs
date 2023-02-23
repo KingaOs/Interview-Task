@@ -8,7 +8,7 @@ public class ObjectPooling : MonoBehaviour
     private GameObject _agent;
     public Queue<GameObject> _agents = new Queue<GameObject>();
 
-    void Start()
+    void Awake()
     {
         _agent.SetActive(false);
         for (int i = 0; i < 30; i++)
