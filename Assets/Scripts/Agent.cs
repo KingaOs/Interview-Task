@@ -8,7 +8,8 @@ public class Agent : MonoBehaviour
     private int _speed = 2;
     [SerializeField]
     private Transform _spawnArea;
-    Vector3 _targetPosition;
+    private Vector3 _targetPosition;
+    private int _health = 3;
 
     void Start()
     {
@@ -33,5 +34,13 @@ public class Agent : MonoBehaviour
             Random.Range(-_spawnArea.transform.localScale.x / 2, _spawnArea.transform.localScale.x / 2), _spawnArea.transform.localScale.y,
             Random.Range(-_spawnArea.transform.localScale.z / 2, _spawnArea.transform.localScale.z / 2));
         _targetPosition = randomPos;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Agent"))
+        {
+            _health--;
+        }
     }
 }
