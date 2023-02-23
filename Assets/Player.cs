@@ -6,12 +6,12 @@ public class Player : MonoBehaviour
 {
     private Camera _camera;
     private Agent _agent;
+    private UIManager _uiManager;
     void Start()
     {
         _camera = GetComponent<Camera>();
+        _uiManager = GameObject.Find("DisplayInfo").GetComponent<UIManager>();
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -23,11 +23,16 @@ public class Player : MonoBehaviour
             {
                 _agent = hit.collider.gameObject.GetComponent<Agent>();
 
-                if(_agent != null)
+                if (_agent != null)
                 {
-                    Debug.Log(_agent.gameObject.name);
+                    _uiManager.ShowAgentInfo(_agent);
+                }
+                else
+                {
+                    _uiManager.HideAgentInfo();
                 }
             }
+
         }
     }
 }

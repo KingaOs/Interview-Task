@@ -9,8 +9,20 @@ public class Agent : MonoBehaviour
     [SerializeField]
     private Transform _spawnArea;
     private Vector3 _targetPosition;
-    private int _health = 3;
     private SpawnManger _spawnManager;
+
+    private int _health = 3;
+    public int Health
+    {
+        get
+        {
+            return _health;
+        }
+        set
+        {
+            _health = value;
+        }
+    }
 
     private string _name;
     public string Name
