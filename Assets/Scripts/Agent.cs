@@ -15,6 +15,7 @@ public class Agent : MonoBehaviour
     private Collider _collider;
 
     private ObjectPooling _objectPooling;
+    private UIManager _uiManager;
 
     private int _health = 3;
     public int Health
@@ -42,9 +43,22 @@ public class Agent : MonoBehaviour
         }
     }
 
+    private bool _isSelected;
+    public bool IsSelected
+    {
+        get
+        {
+            return _isSelected;
+        }
+        set
+        {
+            _isSelected = value;
+        }
+    }
+
     void Start()
     {
-
+        _uiManager = GameObject.Find("DisplayInfo").GetComponent<UIManager>();
         _objectPooling = GameObject.Find("SpawnManager").GetComponent<ObjectPooling>();
         _collider = GetComponent<Collider>();
         _animator = GetComponent<Animator>();
@@ -84,8 +98,21 @@ public class Agent : MonoBehaviour
         if (other.CompareTag("Agent"))
         {
             Health--;
-            if (Health < 1)
+
+            if (IsSelected == true)
+            {
+                _uiManager.UpdateAgentInfo(this);
+
+                if (Health < 1)
+                {
+                    _uiManager.HideAgentInfo();
+                    Death();
+                }
+            }
+            else if (Health < 1)
+            {
                 Death();
+            }
         }
     }
 

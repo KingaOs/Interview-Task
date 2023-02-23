@@ -26,11 +26,15 @@ public class Player : MonoBehaviour
 
                 if (_agent != null)
                 {
+                    _agent.IsSelected = true;
+
                     _uiManager.ShowAgentInfo(_agent);
 
                     if (_previousAgent != null)
                     {
                         _previousAgent.GetComponent<Outline>().enabled = false;
+
+                        _previousAgent.GetComponent<Agent>().IsSelected = false;
                     }
 
                     _agent.gameObject.GetComponent<Outline>().enabled = true;
