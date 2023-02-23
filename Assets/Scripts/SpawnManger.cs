@@ -18,9 +18,22 @@ public class SpawnManger : MonoBehaviour
     GameObject _agentPrefab;
     [SerializeField]
     GameObject[] _spawnPoints;
-    int _numbOfAgent;
+
     [SerializeField]
     private Transform _spawnArea;
+
+    private int _numbOfAgent;
+    public int NumberOfAgent
+    {
+        get
+        {
+            return _numbOfAgent;
+        }
+        set
+        {
+            _numbOfAgent = value;
+        }
+    }
 
     void Start()
     {

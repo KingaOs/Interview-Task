@@ -10,9 +10,11 @@ public class Agent : MonoBehaviour
     private Transform _spawnArea;
     private Vector3 _targetPosition;
     private int _health = 3;
+    private SpawnManger _spawnManager;
 
     void Start()
     {
+        _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManger>();
         _spawnArea = GameObject.Find("Floor").transform;
         GetRandomDestinationPoint();
     }
@@ -22,23 +24,23 @@ public class Agent : MonoBehaviour
         float step = _speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, _targetPosition, step);
 
-        if(Vector3.Distance(transform.position, _targetPosition) < 0.001f)
+        if (Vector3.Distance(transform.position, _targetPosition) < 0.001f)
         {
             GetRandomDestinationPoint();
-        } 
+        }
     }
 
     void GetRandomDestinationPoint()
     {
-      var randomPos = _spawnArea.transform.position + new Vector3(
-            Random.Range(-_spawnArea.transform.localScale.x / 2, _spawnArea.transform.localScale.x / 2), _spawnArea.transform.localScale.y,
-            Random.Range(-_spawnArea.transform.localScale.z / 2, _spawnArea.transform.localScale.z / 2));
+        var randomPos = _spawnArea.transform.position + new Vector3(
+              Random.Range(-_spawnArea.transform.localScale.x / 2, _spawnArea.transform.localScale.x / 2), _spawnArea.transform.localScale.y,
+              Random.Range(-_spawnArea.transform.localScale.z / 2, _spawnArea.transform.localScale.z / 2));
         _targetPosition = randomPos;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Agent"))
+        if (other.CompareTag("Agent"))
         {
             _health--;
             if (_health < 1)
@@ -46,9 +48,9 @@ public class Agent : MonoBehaviour
         }
     }
 
-
     void Death()
     {
-        GameObject.Destroy(this.gameObject);
+        _spawnManager.NumberOfAgent--;
+        Destroy(this.gameObject);
     }
 }

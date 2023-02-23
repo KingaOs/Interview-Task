@@ -153,9 +153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ecd65e7fecd4e418a9537f6ea0c4c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _numOfAgentsAtStart: 5
+  _numOfAgentsAtStart: 3
   _timeBetweenSpawning: 2
-  _maxNumOfAgentAtOnce: 10
+  _maxNumOfAgentAtOnce: 3
   _agentPrefab: {fileID: 8099929381190525841, guid: 1ff877a6dff6a8a4bb4098790b4889af, type: 3}
   _spawnPoints:
   - {fileID: 334565832}
@@ -163,6 +163,7 @@ MonoBehaviour:
   - {fileID: 472107262}
   - {fileID: 631203256}
   - {fileID: 1064337031}
+  _numbOfAgent: 0
   _spawnArea: {fileID: 1000045206}
 --- !u!4 &162140374
 Transform:
