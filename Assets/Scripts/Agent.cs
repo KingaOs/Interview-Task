@@ -12,6 +12,19 @@ public class Agent : MonoBehaviour
     private int _health = 3;
     private SpawnManger _spawnManager;
 
+    private string _name;
+    public string Name
+    {
+        get
+        {
+            return _name;
+        }
+        set
+        {
+            _name = value;
+        }
+    }
+
     void Start()
     {
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManger>();

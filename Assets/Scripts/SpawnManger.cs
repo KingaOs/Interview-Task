@@ -22,6 +22,11 @@ public class SpawnManger : MonoBehaviour
     [SerializeField]
     private Transform _spawnArea;
 
+    private List<string> _names = new List<string> { "Emmyth Mirabalar", "Hagred Ulawenys", "Katyr Bryneiros", "Naertho Liabanise", "Tarathiel Wysazorwyn",
+        "Sakaala Heilamin", "Daratrine Liabanise", "Hagre Shafaren", "Rathal Wyngwyn", "Thalanil Uriran", "Violet Hensley", "Kasey Baker", "Barry May",
+        "Cordell Dominguez", "Helga Beasley", "Chris Hopkins", "Shawn Vance", "Basil Spear", "Donnie Cruz", "Sung Bowers", "Arturo Hahn", "Darwin Roberson",
+        "Edwin Alvarez", "Romeo Roman", "Tracy Mcclure", "Jim Ramsey", "Renaldo Middleton", "Lucius Riggs", "Eddie Fuentes" };
+
     private int _numbOfAgent;
     public int NumberOfAgent
     {
@@ -59,7 +64,8 @@ public class SpawnManger : MonoBehaviour
         for (int i = 0; i < _numOfAgentsAtStart; i++)
         {
             var randomSprawnPoint = Random.Range(0, _spawnPoints.Length);
-            Instantiate(_agentPrefab, _spawnPoints[randomSprawnPoint].transform.position, Quaternion.identity);
+            var agent = Instantiate(_agentPrefab, _spawnPoints[randomSprawnPoint].transform.position, Quaternion.identity);
+            AssignAgentName(agent);
         }
 
         _numbOfAgent = _numOfAgentsAtStart;
@@ -74,11 +80,18 @@ public class SpawnManger : MonoBehaviour
             yield return new WaitUntil(() => _numbOfAgent < _maxNumOfAgentAtOnce);
 
             var randomSprawnPoint = Random.Range(0, _spawnPoints.Length);
-            Instantiate(_agentPrefab, _spawnPoints[randomSprawnPoint].transform.position, Quaternion.identity);
+            var agent = Instantiate(_agentPrefab, _spawnPoints[randomSprawnPoint].transform.position, Quaternion.identity);
             _numbOfAgent++;
-
+            AssignAgentName(agent);
             yield return new WaitForSeconds(_timeBetweenSpawning);
 
         }
     }
+
+    void AssignAgentName(GameObject agent)
+    {
+        var randomNameIndex = Random.Range(0, _names.Count);
+        agent.GetComponent<Agent>().Name = _names[randomNameIndex];
+    }
+
 }
