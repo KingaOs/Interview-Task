@@ -41,6 +41,14 @@ public class Agent : MonoBehaviour
         if(other.CompareTag("Agent"))
         {
             _health--;
+            if (_health < 1)
+                Death();
         }
+    }
+
+
+    void Death()
+    {
+        GameObject.Destroy(this.gameObject);
     }
 }
