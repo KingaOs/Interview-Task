@@ -22,6 +22,8 @@ public class SpawnManger : MonoBehaviour
     [SerializeField]
     private Transform _spawnArea;
 
+    ObjectPooling _objectPooling;
+
     private List<string> _names = new List<string> { "Emmyth Mirabalar", "Hagred Ulawenys", "Katyr Bryneiros", "Naertho Liabanise", "Tarathiel Wysazorwyn",
         "Sakaala Heilamin", "Daratrine Liabanise", "Hagre Shafaren", "Rathal Wyngwyn", "Thalanil Uriran", "Violet Hensley", "Kasey Baker", "Barry May",
         "Cordell Dominguez", "Helga Beasley", "Chris Hopkins", "Shawn Vance", "Basil Spear", "Donnie Cruz", "Sung Bowers", "Arturo Hahn", "Darwin Roberson",
@@ -42,6 +44,8 @@ public class SpawnManger : MonoBehaviour
 
     void Start()
     {
+        _objectPooling = GetComponent<ObjectPooling>();
+
         PlaceSpawnPoints();
         InnitSpawn();
     }
@@ -64,7 +68,9 @@ public class SpawnManger : MonoBehaviour
         for (int i = 0; i < _numOfAgentsAtStart; i++)
         {
             var randomSprawnPoint = Random.Range(0, _spawnPoints.Length);
-            var agent = Instantiate(_agentPrefab, _spawnPoints[randomSprawnPoint].transform.position, Quaternion.identity);
+            var agent = _objectPooling.GetPooledGameObject();
+            agent.transform.position = _spawnPoints[randomSprawnPoint].transform.position;
+            agent.SetActive(true);
             AssignAgentName(agent);
         }
 
@@ -80,7 +86,9 @@ public class SpawnManger : MonoBehaviour
             yield return new WaitUntil(() => _numbOfAgent < _maxNumOfAgentAtOnce);
 
             var randomSprawnPoint = Random.Range(0, _spawnPoints.Length);
-            var agent = Instantiate(_agentPrefab, _spawnPoints[randomSprawnPoint].transform.position, Quaternion.identity);
+            var agent = _objectPooling.GetPooledGameObject();
+            agent.transform.position = _spawnPoints[randomSprawnPoint].transform.position;
+            agent.SetActive(true);
             _numbOfAgent++;
             AssignAgentName(agent);
             yield return new WaitForSeconds(_timeBetweenSpawning);

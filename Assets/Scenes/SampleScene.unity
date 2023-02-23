@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 162140374}
   - component: {fileID: 162140373}
   - component: {fileID: 162140375}
+  - component: {fileID: 162140376}
   m_Layer: 0
   m_Name: SpawnManager
   m_TagString: Untagged
@@ -154,8 +155,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _numOfAgentsAtStart: 5
-  _timeBetweenSpawning: 2
-  _maxNumOfAgentAtOnce: 20
+  _timeBetweenSpawning: 3
+  _maxNumOfAgentAtOnce: 7
   _agentPrefab: {fileID: 1298641209967538, guid: 80a5aa5d3c514d842841d031ae24d8e1, type: 3}
   _spawnPoints:
   - {fileID: 334565832}
@@ -202,6 +203,19 @@ MonoBehaviour:
   - {fileID: 472107262}
   - {fileID: 631203256}
   - {fileID: 1064337031}
+--- !u!114 &162140376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162140372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4e8c1c43a1472b479203b4834d85cf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _agent: {fileID: 1298641209967538, guid: 80a5aa5d3c514d842841d031ae24d8e1, type: 3}
 --- !u!1 &307456802
 GameObject:
   m_ObjectHideFlags: 0

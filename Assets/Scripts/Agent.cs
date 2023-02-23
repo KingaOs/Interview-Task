@@ -14,6 +14,8 @@ public class Agent : MonoBehaviour
     private bool _isDead;
     private Collider _collider;
 
+    private ObjectPooling _objectPooling;
+
     private int _health = 3;
     public int Health
     {
@@ -42,6 +44,8 @@ public class Agent : MonoBehaviour
 
     void Start()
     {
+        _animator.SetFloat("Speed", _speed);
+        _objectPooling = GameObject.Find("SpawnManager").GetComponent<ObjectPooling>();
         _collider = GetComponent<Collider>();
         _animator = GetComponent<Animator>();
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManger>();
@@ -89,6 +93,13 @@ public class Agent : MonoBehaviour
         _isDead = true;
         _animator.SetTrigger("Death");
         _spawnManager.NumberOfAgent--;
-        Destroy(this.gameObject,5);
+        
+    }
+
+    public void DeactiveAgentAfterAnim()
+    {
+        _isDead = false;
+        gameObject.SetActive(false);
+        _objectPooling._agents.Enqueue(gameObject);
     }
 }
