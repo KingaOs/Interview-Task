@@ -44,12 +44,13 @@ public class Agent : MonoBehaviour
 
     void Start()
     {
-        _animator.SetFloat("Speed", _speed);
+        
         _objectPooling = GameObject.Find("SpawnManager").GetComponent<ObjectPooling>();
         _collider = GetComponent<Collider>();
         _animator = GetComponent<Animator>();
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManger>();
         _spawnArea = GameObject.Find("Floor").transform;
+        _animator.SetFloat("Speed", _speed);
         GetRandomDestinationPoint();
     }
 
@@ -98,8 +99,13 @@ public class Agent : MonoBehaviour
 
     public void DeactiveAgentAfterAnim()
     {
-        _isDead = false;
         gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        _isDead = false;
+        _collider.enabled = true;
         _objectPooling._agents.Enqueue(gameObject);
     }
 }
