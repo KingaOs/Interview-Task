@@ -51,7 +51,7 @@ public class SpawnManger : MonoBehaviour
         for (int i = 0; i < _spawnPoints.Length; i++)
         {
             Vector3 randomPos = _spawnArea.transform.position + new Vector3(
-            Random.Range(-_spawnArea.transform.localScale.x / 2, _spawnArea.transform.localScale.x / 2), _spawnArea.transform.localScale.y,
+            Random.Range(-_spawnArea.transform.localScale.x / 2, _spawnArea.transform.localScale.x / 2),0,
             Random.Range(-_spawnArea.transform.localScale.z / 2, _spawnArea.transform.localScale.z / 2));
             _spawnPoints[i].transform.position = randomPos;
         }

@@ -10,6 +10,9 @@ public class Agent : MonoBehaviour
     private Transform _spawnArea;
     private Vector3 _targetPosition;
     private SpawnManger _spawnManager;
+    private Animator _animator;
+    private bool _isDead;
+    private Collider _collider;
 
     private int _health = 3;
     public int Health
@@ -39,6 +42,8 @@ public class Agent : MonoBehaviour
 
     void Start()
     {
+        _collider = GetComponent<Collider>();
+        _animator = GetComponent<Animator>();
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManger>();
         _spawnArea = GameObject.Find("Floor").transform;
         GetRandomDestinationPoint();
@@ -47,7 +52,12 @@ public class Agent : MonoBehaviour
     void Update()
     {
         float step = _speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, step);
+
+        if (!_isDead)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, _targetPosition, step);
+            transform.forward = _targetPosition - transform.position;
+        }
 
         if (Vector3.Distance(transform.position, _targetPosition) < 0.001f)
         {
@@ -58,7 +68,7 @@ public class Agent : MonoBehaviour
     void GetRandomDestinationPoint()
     {
         var randomPos = _spawnArea.transform.position + new Vector3(
-              Random.Range(-_spawnArea.transform.localScale.x / 2, _spawnArea.transform.localScale.x / 2), _spawnArea.transform.localScale.y,
+              Random.Range(-_spawnArea.transform.localScale.x / 2, _spawnArea.transform.localScale.x / 2), 0,
               Random.Range(-_spawnArea.transform.localScale.z / 2, _spawnArea.transform.localScale.z / 2));
         _targetPosition = randomPos;
     }
@@ -67,15 +77,18 @@ public class Agent : MonoBehaviour
     {
         if (other.CompareTag("Agent"))
         {
-            _health--;
-            if (_health < 1)
+            Health--;
+            if (Health < 1)
                 Death();
         }
     }
 
     void Death()
     {
+        _collider.enabled = false;
+        _isDead = true;
+        _animator.SetTrigger("Death");
         _spawnManager.NumberOfAgent--;
-        Destroy(this.gameObject);
+        Destroy(this.gameObject,5);
     }
 }
