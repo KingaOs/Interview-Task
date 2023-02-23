@@ -19,32 +19,43 @@ public class SpawnManger : MonoBehaviour
     [SerializeField]
     GameObject[] _spawnPoints;
     int _numbOfAgent;
+    [SerializeField]
+    private Transform _spawnArea;
 
-    // Start is called before the first frame update
     void Start()
     {
+        PlaceSpawnPoints();
         InnitSpawn();
     }
+
+    void PlaceSpawnPoints()
+    {
+        for (int i = 0; i < _spawnPoints.Length; i++)
+        {
+            Vector3 randomPos = _spawnArea.transform.position + new Vector3(
+            Random.Range(-_spawnArea.transform.localScale.x / 2, _spawnArea.transform.localScale.x / 2), _spawnArea.transform.localScale.y,
+            Random.Range(-_spawnArea.transform.localScale.z / 2, _spawnArea.transform.localScale.z / 2));
+            _spawnPoints[i].transform.position = randomPos;
+        }
+
+    }
+
 
     void InnitSpawn()
     {
         for (int i = 0; i < _numOfAgentsAtStart; i++)
         {
             var randomSprawnPoint = Random.Range(0, _spawnPoints.Length);
-            Debug.Log(randomSprawnPoint);
             Instantiate(_agentPrefab, _spawnPoints[randomSprawnPoint].transform.position, Quaternion.identity);
         }
 
         _numbOfAgent = _numOfAgentsAtStart;
 
-       StartCoroutine(StartSpawning());
+        StartCoroutine(StartSpawning());
     }
-
-
 
     IEnumerator StartSpawning()
     {
-
         while (true)
         {
             yield return new WaitUntil(() => _numbOfAgent < _maxNumOfAgentAtOnce);
